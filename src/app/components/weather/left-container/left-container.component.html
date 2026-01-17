@@ -1,0 +1,35 @@
+<div class="left-container">
+    <div class="loading-overlay" *ngIf="weatherService.isLoading">
+        <div class="spinner"></div>
+        <div class="loading-text">Fetching Weather Data...</div>
+    </div>
+    <div [class.blur-content]="weatherService.isLoading">
+    <div class="left-nav-bar">
+        <div class="search" (click)="onSearch(locationInput.value)"><fa-icon class="fa-xs" [icon]="search" /></div>
+        <div class="input"><input type="text" placeholder="Search for places..." #locationInput (keyup.Enter)="onSearch(locationInput.value)"></div>
+        <div class="location" (click)="onSearch(locationInput.value)"><fa-icon class="fa-xs" [icon]="locationIcon" /></div>
+    </div>
+    <div class="left-data-box">
+        <div class="left-temp-data">
+            <div class="left-temp-img"><img [src]="weatherService.temperatureData.summaryImage" alt="SummaryImage"></div>
+            <div class="left-temp-value">{{this.weatherService.celsius?this.weatherService.temperatureData.temperature:this.weatherService.celsiusToFahrenheit(this.weatherService.temperatureData.temperature)}}<sup>{{this.weatherService.celsius? "°C" : "°F" }}</sup></div>
+            <div class="left-day-time">{{this.weatherService.temperatureData.day }}, <span>{{this.weatherService.temperatureData.time}}</span></div>
+        </div>
+        <div class="dividing-line"></div>
+        <div class="left-other-details">
+            <div class="left-temp-summary">
+                <div class="left-temp-summary-img"><fa-icon class="fa-xs" [icon]="cloud" style="color: #4050d2;" /></div>
+                <div class="left-temp-summary-value">{{this.weatherService.temperatureData.summaryPhrase}}</div>
+            </div>
+            <div class="left-rain-stats">
+                <div class="left-rain-img"><fa-icon class="fa-xs" [icon]="rain" style="color: #4050d2;" /></div>
+                <div class="left-rain-value">Rain - {{this.weatherService.temperatureData.rainPercent}}</div>
+            </div>
+            <div class="left-location-details">
+                <div class="left-location-img"><img src="assets/images/newyork.jpg" alt=""></div>
+                <div class="left-location-name">{{this.weatherService.temperatureData.location}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

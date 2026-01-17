@@ -1,0 +1,30 @@
+<div class="d-flex gap-3 mb-4">
+  <select class="form-select w-auto" [(ngModel)]="selectedCountry" (change)="loadNews()">
+    <option *ngFor="let c of countries" [value]="c.code">{{ c.name }}</option>
+  </select>
+</div>
+<div class="container-fluid mt-5">
+
+  <h4>Top Headlines</h4>
+  <app-category
+  (categorySelected)="onCategoryReceived($event)">
+</app-category>
+  <div class="row">
+    <div class="col-lg-3 mt-3 mb-3" *ngFor="let element of topHeadlinesResult">
+      <div class="card">
+        <img [src]="element?.image" width="100%" class="card-img-top" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title">{{ element?.title }}</h5>
+          <a [href]="element?.url" target="_blank" class="btn btn-dark btn-sm mt-2">Read More</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="loading" class="text-center mt-5">
+  <div class="spinner-border text-dark"></div>
+</div>
+
+<p *ngIf="!loading && topHeadlinesResult.length === 0" class="text-muted">
+  No news available.
+</p>
