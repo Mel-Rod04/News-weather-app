@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NewsApiService } from 'src/app/Services/news/news-api.service';
+import { WeatherService } from 'src/app/Services/weather/weather-api.service';
 
 @Component({
   selector: 'app-home',
@@ -8,16 +9,18 @@ import { NewsApiService } from 'src/app/Services/news/news-api.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit{
-   topNewsPreview: any[] = [];
+  topNewsPreview: any[] = [];
   loading = false;
 
   constructor(
     private newsService: NewsApiService,
+    public weatherService: WeatherService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.loadTopNews();
+    this.loadTopNews();    
+    this.weatherService.getData();
   }
 
   loadTopNews() {
@@ -34,4 +37,7 @@ export class HomeComponent implements OnInit{
     this.router.navigate(['/headline']);
   }
 
+   goToWeather() {
+    this.router.navigate(['/weather']);
+  }
 }
